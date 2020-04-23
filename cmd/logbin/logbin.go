@@ -84,7 +84,9 @@ func main() {
 
 			n, err := io.CopyN(f, r.Body, *limit)
 			if err != nil && err != io.EOF {
-				panic(err)
+				log.Printf("[%s] %v", r.RemoteAddr, err)
+				http.Error(w, fmt.Sprintf("Server Error (EOF?)", *limit), 500)
+				return
 			} else if err != io.EOF && n == *limit {
 				log.Printf("[%s] upload truncated", r.RemoteAddr)
 				http.Error(w, fmt.Sprintf("Your upload is too large and has been truncated to %d bytes", *limit), 413)
