@@ -250,10 +250,10 @@ var indexPage = `<!doctype html>
 					appropriate file ending (.log or .txt for plain text, .xz or .gz for compressed files).
 				</p>
                 <p>Example using <code>curl</code>:</p>
-				<code>curl -d @logfile.txt '{{.publicURL}}'</code>
+				<code>curl --data-binary @logfile.txt '{{.publicURL}}'</code>
 
 				<p>journalctl example:</p>
-				<code>journalctl -u name.service -o cat --utc --since '09:30' --until '10:30' | curl -d @- '{{.publicURL}}'</code>
+				<code>journalctl -u name.service -o cat --utc --since '09:30' --until '10:30' | curl --data-binary @- '{{.publicURL}}'</code>
 
 				<p>
 					If your upload has successfully completed, the server will reply with a confirmation message.
@@ -263,7 +263,7 @@ var indexPage = `<!doctype html>
 				<p>The upload size limit is {{.limitMB}} MB.</p>
 				
 				<p>If you need to upload a large log file (>100MB), please compress it before uploading it:</p>
-				<code>xz < logfile.txt | curl -d @- '{{.publicURL}}.xz'</code>
+				<code>xz < logfile.txt | curl --data-binary @- '{{.publicURL}}.xz'</code>
             </div>
         </div>
         <div class="footer">
