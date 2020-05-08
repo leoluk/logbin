@@ -95,7 +95,8 @@ func main() {
 
 			if n <= 32 {
 				log.Printf("[%s] upload too small (%d bytes)", r.RemoteAddr, n)
-				http.Error(w, fmt.Sprintf("You uploaded only %d bytes - please check your command and try again (minimum is 32)"), 400)
+				http.Error(w, fmt.Sprintf("You uploaded only %d bytes - please check your command and try again (minimum is 32)", n), 400)
+				os.Remove(p)
 				return
 			}
 
