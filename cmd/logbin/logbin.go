@@ -55,7 +55,9 @@ func main() {
 				"limitMB":   strconv.Itoa(int(*limit) / 1000000),
 			})
 			if err != nil {
-				panic(err)
+				log.Printf("[%s] error writing response: %s", r.RemoteAddr, err)
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
 		case "POST":
 			clean := path.Clean(r.URL.Path)
